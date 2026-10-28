@@ -102,7 +102,7 @@ function createWindow(hostUrl: string | null) {
     }) === 1) e.preventDefault();
   });
 
-  const dev = process.env.VITE_DEV_SERVER_URL ?? (app.isPackaged ? null : 'http://localhost:5173');
+  const dev = process.env.VITE_DEV_SERVER_URL ?? (app.isPackaged ? null : 'http://localhost:5290');
   if (dev) void win.loadURL(dev);
   else void win.loadFile(join(__dirname, '..', 'dist', 'index.html'));
 }

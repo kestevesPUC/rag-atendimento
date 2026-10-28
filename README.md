@@ -26,33 +26,46 @@ packages/server/   Fastify + Socket.IO, conversas, fila de jobs, pipeline de IA,
 
 ## Como rodar (desenvolvimento)
 
-Requisitos: Node 20+ (testado no 24, Windows). Não precisa instalar pnpm.
+Requisitos: Node 20+ (testado no 24, Windows). O pnpm não precisa estar instalado: use sempre `npx -y pnpm@10` (o `-y` evita a pergunta "Ok to proceed?", que deixa o terminal esperando).
 
-```bash
-PUPPETEER_SKIP_DOWNLOAD=1 npx pnpm@10 install
+**1. Instalar (uma vez)** — no PowerShell:
+
+```powershell
+$env:PUPPETEER_SKIP_DOWNLOAD=1; npx -y pnpm@10 install
 ```
 
-Servidor (canal **falso** por padrão — nenhuma mensagem real):
+(no Git Bash: `PUPPETEER_SKIP_DOWNLOAD=1 npx -y pnpm@10 install`)
+
+**2. Servidor** (terminal 1; canal de WhatsApp **falso** por padrão — nenhuma mensagem real):
 
 ```bash
-npx pnpm@10 dev:server
+npx -y pnpm@10 dev:server
 ```
 
-Interface em um navegador (o caminho validado):
+**3. Interface — duas opções** (terminal 2):
 
 ```bash
-npx pnpm@10 --filter @rag/desktop dev
+# a) no navegador (abra http://localhost:5290)
+npx -y pnpm@10 --filter @rag/desktop dev
+
+# b) na janela desktop (Electron); o 1º comando baixa o binário, uma vez
+npx -y pnpm@10 --filter @rag/desktop electron:install
+npx -y pnpm@10 --filter @rag/desktop dev:electron
 ```
 
-Abra `http://localhost:5173`; no primeiro acesso o app cria o administrador. A IA só responde com uma chave de API configurada em *Configurações da IA* (ou `ANTHROPIC_API_KEY`). Sem chave, tudo vai para a fila humana.
+Na primeira abertura do Electron aparece "Esta máquina será o Host?". Responda **"Não, sou Cliente"**: o modo Host embutido ainda não é utilizável (veja Limitações). Se errar, apague o `config.json` da pasta de dados do app em `%APPDATA%`.
+
+No primeiro acesso o app cria o administrador. A IA só responde com uma chave de API configurada em *Configurações da IA* (ou `ANTHROPIC_API_KEY`); sem chave, tudo vai para a fila humana. Com o canal falso, nenhuma mensagem de cliente chega: para simular clientes use os testes.
+
+A interface usa a porta **5290** (e o servidor, 3333). Se alguma estiver ocupada, o Vite avisa e não sobe.
 
 Variáveis do servidor: `PORT` (3333), `HOST` (127.0.0.1), `DATA_DIR`, `WA_MODE=real|fake`, `LOG_LEVEL`.
 
 Testes e tipos:
 
 ```bash
-npx pnpm@10 typecheck
-npx pnpm@10 test
+npx -y pnpm@10 typecheck
+npx -y pnpm@10 test
 ```
 
 ## O que foi verificado
@@ -65,7 +78,7 @@ npx pnpm@10 test
 
 **Segurança (prioridade alta):** a API usa **HTTP sem TLS** (D-027). Mantenha `HOST=127.0.0.1` ou use VPN/túnel; nunca exponha na rede compartilhada.
 
-**Nunca executado de verdade:** conexão com WhatsApp real (`whatsapp-web.js`, exige QR e é **não oficial** — risco de bloqueio do número), chamadas ao LLM real, janela Electron, modo Host embutido e instalador.
+**Nunca executado de verdade:** conexão com WhatsApp real (`whatsapp-web.js`, exige QR e é **não oficial** — risco de bloqueio do número), chamadas ao LLM real, modo Host embutido e instalador (a janela Electron abre em modo Cliente e carrega a interface; só isso foi conferido).
 
 **Não implementado:** descoberta por mDNS, auto-update, backup e restauração, rotinas de LGPD, reindexação ao trocar o modelo de embeddings, fine-tuning, envio de mídia e transcrição de áudio (D-028).
 

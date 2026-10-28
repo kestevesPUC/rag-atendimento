@@ -7,11 +7,12 @@
   "description": "RAG Atendimento — aplicativo desktop",
   "scripts": {
     "dev": "vite",
-    "dev:electron": "concurrently -k \"vite\" \"wait-on tcp:5173 && pnpm build:electron && electron .\"",
+    "dev:electron": "concurrently -k \"vite\" \"wait-on tcp:5290 && pnpm build:electron && electron .\"",
     "build": "vite build && pnpm build:electron",
     "build:electron": "esbuild electron/main.ts electron/preload.ts --bundle --platform=node --format=cjs --external:electron --outdir=dist-electron --out-extension:.js=.cjs",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "electron:install": "node node_modules/electron/install.js"
   },
   "dependencies": {
     "@rag/shared": "workspace:*",
