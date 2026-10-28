@@ -73,9 +73,15 @@ export function Auth() {
           <h2>{needsSetup ? 'Configuração inicial' : 'Entrar'}</h2>
           <p>{needsSetup ? 'Crie o administrador desta instalação.' : 'Use o e-mail e a senha cadastrados pelo administrador.'}</p>
 
-          {status.isError && !editing && (
+          {status.isError && (
             <Message kind="err">
-              {errMsg(status.error)}
+              <>
+                {errMsg(status.error)}{' '}
+                <small style={{ display: 'block', color: 'inherit' }}>O servidor deve estar rodando (<code>npx -y pnpm@10 dev:server</code>) em <code>{serverUrl}</code>.</small>{' '}
+                <button type="button" className="btn alt sm" onClick={() => void status.refetch()} disabled={status.isFetching}>
+                  {status.isFetching ? 'Tentando…' : 'Tentar novamente'}
+                </button>
+              </>
             </Message>
           )}
           {error && <Message kind="err">{error}</Message>}
@@ -97,7 +103,7 @@ export function Auth() {
               <input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} autoComplete="new-password" required />
             </label>
           )}
-          <button className="btn block" disabled={busy || status.isError}>
+          <button className="btn block" disabled={busy}>
             {busy ? 'Aguarde…' : needsSetup ? 'Criar administrador e entrar' : 'Entrar'}
           </button>
 
