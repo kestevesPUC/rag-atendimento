@@ -1,0 +1,10 @@
+{
+  "name": "@rag/wa-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts", "./worker": "./src/worker.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json", "test": "vitest run" },
+  "dependencies": { "@rag/shared": "workspace:*", "whatsapp-web.js": "^1.26.0" },
+  "devDependencies": { "@types/node": "^22.0.0", "typescript": "^5.6.0", "vitest": "^2.1.0" }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "rag-atendimento",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev:server": "pnpm --filter @rag/server dev",
+    "dev:desktop": "pnpm --filter @rag/desktop dev",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "pnpm -r build"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["better-sqlite3", "esbuild", "electron", "sqlite-vec"]
+  }
+}

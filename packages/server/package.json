@@ -1,0 +1,36 @@
+{
+  "name": "@rag/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@rag/rag": "workspace:*",
+    "@rag/shared": "workspace:*",
+    "@rag/wa-gateway": "workspace:*",
+    "@fastify/cors": "^10.0.0",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.0.0",
+    "fastify": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "pino": "^9.0.0",
+    "socket.io": "^4.8.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.0.0",
+    "socket.io-client": "^4.8.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
