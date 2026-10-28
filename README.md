@@ -57,9 +57,9 @@ npx pnpm@10 test
 
 ## O que foi verificado
 
-- **89 testes automatizados** (rag 11, gateway 6, servidor 72) cobrem as regras RN03–RN13 e os 6 critérios de aceite do MVP **via API HTTP e Socket.IO reais**: isolamento por setor, assinatura `*Nome*` só nas mensagens humanas, IA desligada em conversa ativa, encerramento por inatividade, transferência com resumo e assunção concorrente (um vence, outro recebe 409).
+- **93 testes automatizados** (rag 11, gateway 6, servidor 72, desktop 4) cobrem as regras RN03–RN13 e os 6 critérios de aceite do MVP **via API HTTP e Socket.IO reais**: isolamento por setor, assinatura `*Nome*` só nas mensagens humanas, IA desligada em conversa ativa, encerramento por inatividade, transferência com resumo e assunção concorrente (um vence, outro recebe 409).
 - Servidor real iniciado e consultado; interface inspecionada no navegador; contraste WCAG AA calculado nos dois temas.
-- Os testes do app desktop (`apps/desktop/test`) foram escritos, mas **a última rodada completa de testes/tipos não foi concluída antes deste commit** — rode `typecheck` e `test` antes de confiar.
+- `typecheck`, `test` e `build` rodaram limpos em todos os pacotes na última verificação (2026-10-28).
 
 ## Limitações e o que não foi verificado
 
